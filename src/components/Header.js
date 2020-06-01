@@ -6,7 +6,6 @@ import logo from '../imagenes/logo.png';
 class Header extends Component {
     constructor(props) {
         super(props);
-        console.log("Constructor");
     }
 
     componentWillMount() {
