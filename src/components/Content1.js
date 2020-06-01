@@ -40,7 +40,11 @@ class Content1 extends Component {
         console.log(nextState)
         console.log("=================")
         console.log("shouldComponentUpdate");
-        return true;
+        let n1 = 1,  n2 = 8;
+        if(n1 > n2)
+            return false;
+        else 
+            return true;
     }
     
     componentWillUpdate(nextProps, nextState){
@@ -59,11 +63,15 @@ class Content1 extends Component {
         console.log("componentDidUpdate");
     }
     
+    componentWillUnmount(){
+        alert("Hola desde componentWillUnmount");
+    }
+    
     cambiarNombrEstado = () => {
      //   alert("Click!!");
        // console.log();
      //   this.setProps({nombre: "Pedro"});
-        this.setState({nombre:"Hola nombre"});
+        this.setState({nombre:"Carlos"});
     }
     
     render() {
@@ -95,6 +103,7 @@ class Content1 extends Component {
                         </tbody>
                     </table>
                     <button className = "btn btn-primary" onClick={this.cambiarNombrEstado}>Cambiar nombre!!!</button>
+                    <p>El nombre es: {this.state.nombre}</p>
                  </article>
             </article>
         );
