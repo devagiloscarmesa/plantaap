@@ -4,24 +4,28 @@ class Content1 extends Component {
 	constructor(props){
         super(props);
         this.state = {
-            plants: [
-                {
-                    "id": 8,
-                    "common_name": "Celery",
-                    "family_name": "Apiaceae",
-                    "scientific_name": "Apium L.",
-                    "cost": 78
-                  },
-                  {
-                    "id": 9,
-                    "common_name": "Alkali Milkvetch",
-                    "family_name": "Fabaceae",
-                    "scientific_name": "Astragalus tener A. Gray",
-                    "cost": 54
-                  },
-            ]
+            plants: []
         };
     }
+    
+    async componentDidMount(){
+        //fetch
+        //axios
+        /*fetch('https://plants-backend.now.sh/plants')
+        .then((respuesta) => {
+            return respuesta.json();
+        }).then((plantas) => {
+            console.log(plantas);
+            this.setState({
+                plants : plantas
+            });
+        })*/
+        
+        let respuesta = await fetch('https://plants-backend.now.sh/plants');
+        let plantas = await respuesta.json();
+        this.setState({plants : plantas});
+    }
+    
     render() {
         let {plants} = this.state;
         return (
@@ -40,11 +44,11 @@ class Content1 extends Component {
                         <tbody>
                             {plants.map((plant, id) => {
                                 return (<tr key = {id}>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{plant.id}</td>
+                                    <td>{plant.common_name}</td>
+                                    <td>{plant.family_name}</td>
+                                    <td>{plant.scientific_name}</td>
+                                    <td>{plant.cost}</td>
                                 </tr>);
                             })}
                         </tbody>
