@@ -97,7 +97,6 @@ class Content1 extends Component {
     
     handleEnviarFormulario = async(e) => {
         e.preventDefault();
-        console.log(document.querySelector("#nombre_comum").value);
         let configuracion = {
             method : 'POST', 
             body : JSON.stringify({
@@ -113,6 +112,20 @@ class Content1 extends Component {
         let respuesta = await fetch('https://plants-backend.now.sh/plants', configuracion);
         let plata = await respuesta.json();
         console.log(plata);
+    }
+    
+    handleModificarFormulario = async(e) => {
+        e.preventDefault();
+        let data = {
+            common_name: document.querySelector("#nombre_comum").value,
+            family_name: document.querySelector("#nombre_familia").value,
+            scientific_name: document.querySelector("#nombre_cintifico").value,
+            cost: document.querySelector("#costo").value
+        };
+      
+        let respuesta = await axios.put('https://plants-backend.now.sh/plants/34', data);
+        //let plata = await respuesta.json();
+        console.log(respuesta.data);
     }
     
     render() {
@@ -157,6 +170,7 @@ class Content1 extends Component {
                         <input type = "text" id = "costo"></input>
                         
                         <input type = "submit" value = "enviar" onClick = {this.handleEnviarFormulario}/>
+                        <input type = "submit" value = "Modificar" onClick = {this.handleModificarFormulario}/>
                     </form>
                  </article>
             </article>
