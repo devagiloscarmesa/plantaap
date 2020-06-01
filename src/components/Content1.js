@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+const axios = require('axios').default;
 
 class Content1 extends Component {
 	constructor(props){
@@ -16,7 +17,7 @@ class Content1 extends Component {
     }
     
     async componentDidMount(){
-        console.log("Ya semonto el HTML en el DOM (componentDidMount)");
+        //console.log("Ya semonto el HTML en el DOM (componentDidMount)");
         //fetch
         //axios
         /*fetch('https://plants-backend.now.sh/plants')
@@ -27,11 +28,31 @@ class Content1 extends Component {
             this.setState({
                 plants : plantas
             });
-        })*/
+        }) */
         
-      /*  let respuesta = await fetch('https://plants-backend.now.sh/plants');
+        /*let respuesta = await fetch('https://plants-backend.now.sh/plants');
         let plantas = await respuesta.json();
-        this.setState({plants : plantas});*/
+        this.setState({plants : plantas}); */
+       
+        try{
+            var respuesta = await axios.get('https://plants-backend.now.sh/plants/1');
+            if(Array.isArray(respuesta.data))
+                this.setState({plants : respuesta.data}); 
+            else
+                this.setState({plants : [respuesta.data]}); 
+        }catch(error){
+            console.log("================");
+            console.log(error);
+            console.log(respuesta);
+            console.log("================");
+        }
+        
+        /*axios.get('https://plants-backend.now.sh/plants/13').
+        then( (respuesta) => {
+            this.setState({plants : [respuesta.data]}); 
+        }).catch( (error, p) => {
+            console.log(error)
+        })*/
     }
     
     shouldComponentUpdate(nextProps, nextState){
@@ -74,6 +95,26 @@ class Content1 extends Component {
         this.setState({nombre:"Carlos"});
     }
     
+    handleEnviarFormulario = async(e) => {
+        e.preventDefault();
+        console.log(document.querySelector("#nombre_comum").value);
+        let configuracion = {
+            method : 'POST', 
+            body : JSON.stringify({
+                common_name: document.querySelector("#nombre_comum").value,
+                family_name: document.querySelector("#nombre_familia").value,
+                scientific_name: document.querySelector("#nombre_cintifico").value,
+                cost: document.querySelector("#costo").value
+            }), 
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        };
+        let respuesta = await fetch('https://plants-backend.now.sh/plants', configuracion);
+        let plata = await respuesta.json();
+        console.log(plata);
+    }
+    
     render() {
         let {plants} = this.state;
         console.log("Se esta renderizando el HTML (render)");
@@ -102,8 +143,21 @@ class Content1 extends Component {
                             })}
                         </tbody>
                     </table>
-                    <button className = "btn btn-primary" onClick={this.cambiarNombrEstado}>Cambiar nombre!!!</button>
-                    <p>El nombre es: {this.state.nombre}</p>
+                    <form>
+                        <label>Nombre común	</label>
+                        <input type = "text" id = "nombre_comum"></input>
+                        
+                        <label>Nombre de familia</label>
+                        <input type = "text" id = "nombre_familia"></input>
+                        
+                        <label>Nombre Científico </label>
+                        <input type = "text" id = "nombre_cintifico"></input>
+                        
+                        <label>Costo </label>
+                        <input type = "text" id = "costo"></input>
+                        
+                        <input type = "submit" value = "enviar" onClick = {this.handleEnviarFormulario}/>
+                    </form>
                  </article>
             </article>
         );
