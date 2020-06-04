@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Alert from './AlertMessagess';
 const axios = require('axios').default;
 
 class Content1 extends Component {
@@ -127,7 +128,7 @@ class Content1 extends Component {
         //let plata = await respuesta.json();
         console.log(respuesta.data);
     }
-    
+    //delete
     render() {
         let {plants} = this.state;
         console.log("Se esta renderizando el HTML (render)");
@@ -173,6 +174,7 @@ class Content1 extends Component {
                         <input type = "submit" value = "Modificar" onClick = {this.handleModificarFormulario}/>
                     </form>
                  </article>
+                <Alert/>
             </article>
         );
     }
