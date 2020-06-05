@@ -44,6 +44,29 @@ class Content1 extends Component {
         this.setState({plants : plantas}); */
        
         try{
+            
+            var r1 = axios.get('https://plants-backend.now.sh/plants/1');
+            var r2 = axios.get('https://plants-backend.now.sh/plants/2');
+            var r3 = axios.get('https://plants-backend.now.sh/plants/3');
+            
+            
+            r3.then( planta => {
+                console.log("~~~~~~~~~~");
+                console.log(planta);
+                console.log("~~~~~~~~~~");
+            });
+            
+            r1.then( planta => {
+                console.log("~~~~~~~~~~");
+                console.log(planta);
+                console.log("~~~~~~~~~~");
+            });
+            
+            r2.then( planta => {
+                console.log("~~~~~~~~~~");
+                console.log(planta);
+                console.log("~~~~~~~~~~");
+            });
             var respuesta = await axios.get('https://plants-backend.now.sh/plants');
             if(Array.isArray(respuesta.data))
                 this.setState({plants : respuesta.data, plantsFilter: respuesta.data}); 
@@ -139,10 +162,16 @@ class Content1 extends Component {
     
     handleFiltroPlantas = e =>{
         let search_value = e.target.value;
-        let plants_filter = this.state.plants.filter((plant, i) => {
+        let plants_filter = this.state.plants.filter((plant) => {
             return plant.common_name.toLowerCase().search(search_value.toLowerCase()) != -1;
         });
         this.setState({plantsFilter:plants_filter})
+    }
+    
+    handleBuscarFamilia = e => {
+        let id = e.target.getAttribute('idplanta');
+        
+        console.log(id);
     }
     //delete
     render() {
@@ -177,6 +206,7 @@ class Content1 extends Component {
                             <th>Nombre de Familia</th>
                             <th>Nombre Científico</th>
                             <th>Costo</th>
+                            <th>Consultar Familia</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -187,6 +217,7 @@ class Content1 extends Component {
                                     <td>{plant.family_name}</td>
                                     <td>{plant.scientific_name}</td>
                                     <td>{plant.cost}</td>
+                                    <td><a href = "#" onClick = {this.handleBuscarFamilia} idplanta = {id}>Consultar</a></td>
                                 </tr>);
                             })}
                         </tbody>

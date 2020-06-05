@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {createStore} from 'redux';
 import { Tab } from 'react-bootstrap';
 import Header from './components/Header';
 import MenuTab from './components/MenuTab';
@@ -10,17 +11,14 @@ import FCoords from './components/FuncionComponentCoords';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/style.scss'; 
 
+
+
 class App extends Component{
-/*	let c = <Coords latitud = {23} longitud = {76}/>
-  console.log("========")
-  console.log(c);
-  console.log("========") */
+
   render(){
     return (
       <div className="App">
-          { /*<FCoords/>
-        {c}*/}
-        <section id="page-grid" className="container-fluid">
+        {/*}<section id="page-grid" className="container-fluid">
             <Header/>
             <section id="main">
               <Tab.Container defaultActiveKey="link-1">
@@ -29,9 +27,8 @@ class App extends Component{
                   <ContenTab/>
                 </div>
               </Tab.Container>
-
             </section>
-          </section> 
+    </section> {*/}
       </div>
     );
   }
