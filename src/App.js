@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {createStore} from 'redux';
+import {connect} from 'react-redux';
+import {setCiudad} from './actions'
 import { Tab } from 'react-bootstrap';
 import Header from './components/Header';
 import MenuTab from './components/MenuTab';
@@ -11,10 +13,12 @@ import FCoords from './components/FuncionComponentCoords';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/style.scss'; 
 
-
-
 class App extends Component{
-
+  
+  handleAsignarCiudad = () =>{
+    setCiudad("Medellin");
+  }
+  
   render(){
     return (
       <div className="App">
@@ -29,9 +33,16 @@ class App extends Component{
               </Tab.Container>
             </section>
     </section> {*/}
+      <button className = "btn btn-danger" onClick = {this.handleAsignarCiudad} >Asignar ciudad</button>
       </div>
     );
   }
 }
 
-export default App;
+const mapDispatchToPropsActions = dispatch => ({
+  setCiudad : (value) => dispatch(setCiudad(value))
+});
+
+export default connect(null, mapDispatchToPropsActions)(App);
+
+//export default App;
