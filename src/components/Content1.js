@@ -13,6 +13,7 @@ class Content1 extends Component {
         super(props);
         this.state = {
             plants: [], 
+            plantsFilter: [], 
             nombre: "Pepito", 
             contenTab : contenTab
         };
@@ -43,11 +44,11 @@ class Content1 extends Component {
         this.setState({plants : plantas}); */
        
         try{
-            var respuesta = await axios.get('https://plants-backend.now.sh/plants/1');
+            var respuesta = await axios.get('https://plants-backend.now.sh/plants');
             if(Array.isArray(respuesta.data))
-                this.setState({plants : respuesta.data}); 
+                this.setState({plants : respuesta.data, plantsFilter: respuesta.data}); 
             else
-                this.setState({plants : [respuesta.data]}); 
+                this.setState({plants : [respuesta.data], plantsFilter: [respuesta.data]}); 
         }catch(error){
             console.log("================");
             console.log(error);
@@ -135,13 +136,22 @@ class Content1 extends Component {
         //let plata = await respuesta.json();
         console.log(respuesta.data);
     }
+    
+    handleFiltroPlantas = e =>{
+        let search_value = e.target.value;
+        let plants_filter = this.state.plants.filter((plant, i) => {
+            return plant.common_name.toLowerCase().search(search_value.toLowerCase()) != -1;
+        });
+        this.setState({plantsFilter:plants_filter})
+    }
     //delete
     render() {
-        let {plants} = this.state;
+        let plants = this.state.plantsFilter;
         const alerts = [{
             id: 1,
             type: "info",
-            message: "Hello, world"
+            message: "Hello, world",
+            timeout: 5
         }, {
             id: 2,
             type: "success",
@@ -150,6 +160,14 @@ class Content1 extends Component {
         console.log("Se esta renderizando el HTML (render)");
         return (
             <article className="row">
+        
+                <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                        <button className="btn btn-outline-secondary" type="button" id="button-addon1">Button</button>
+                    </div>
+                    <input onKeyUp = {this.handleFiltroPlantas} type="text" className="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"/>
+                </div>
+
                 <article className="col-lg-12">
                     <table id="tbl-mensualidades" className="table table-bordered">
                         <thead>
