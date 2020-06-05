@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
-import Alert from './AlertMessagess';
+import { Alert, AlertContainer,AlertList } from "react-bs-notifier";
+//https://chadly.github.io/react-bs-notifier/
 const axios = require('axios').default;
 
 class Content1 extends Component {
 	constructor(props){
+    	console.log("********************")
+        console.log(props)
+        console.log("********************")
+        let contenTab = props.contenTab
+        //contenTab.saludar();
         super(props);
         this.state = {
             plants: [], 
-            nombre: "Pepito"
+            nombre: "Pepito", 
+            contenTab : contenTab
         };
         //console.log(props);
         //console.log("Se esta ejecutando el contructor (constructor)")
@@ -131,6 +138,15 @@ class Content1 extends Component {
     //delete
     render() {
         let {plants} = this.state;
+        const alerts = [{
+            id: 1,
+            type: "info",
+            message: "Hello, world"
+        }, {
+            id: 2,
+            type: "success",
+            message: "Oh, hai"
+        }]
         console.log("Se esta renderizando el HTML (render)");
         return (
             <article className="row">
@@ -172,9 +188,11 @@ class Content1 extends Component {
                         
                         <input type = "submit" value = "enviar" onClick = {this.handleEnviarFormulario}/>
                         <input type = "submit" value = "Modificar" onClick = {this.handleModificarFormulario}/>
+                        <input type = "button" value = "Saludar" onClick = {this.state.contenTab.saludar}/>
                     </form>
-                 </article>
-                <Alert/>
+                 </article>            
+                 <AlertList alerts={alerts} />
+
             </article>
         );
     }

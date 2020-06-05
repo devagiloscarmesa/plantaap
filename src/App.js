@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Tab } from 'react-bootstrap';
 import Header from './components/Header';
 import MenuTab from './components/MenuTab';
@@ -10,29 +10,31 @@ import FCoords from './components/FuncionComponentCoords';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/style.scss'; 
 
-function App() {
+class App extends Component{
 /*	let c = <Coords latitud = {23} longitud = {76}/>
   console.log("========")
   console.log(c);
   console.log("========") */
-  return (
-    <div className="App">
-        { /*<FCoords/>
-       {c}*/}
-      <section id="page-grid" className="container-fluid">
-          <Header/>
-          <section id="main">
-            <Tab.Container defaultActiveKey="link-1">
-              <div className="card text-center">
-                <MenuTab/>
-                <ContenTab/>
-              </div>
-            </Tab.Container>
+  render(){
+    return (
+      <div className="App">
+          { /*<FCoords/>
+        {c}*/}
+        <section id="page-grid" className="container-fluid">
+            <Header/>
+            <section id="main">
+              <Tab.Container defaultActiveKey="link-1">
+                <div className="card text-center">
+                  <MenuTab/>
+                  <ContenTab/>
+                </div>
+              </Tab.Container>
 
-          </section>
-        </section> 
-    </div>
-  );
+            </section>
+          </section> 
+      </div>
+    );
+  }
 }
 
 export default App;

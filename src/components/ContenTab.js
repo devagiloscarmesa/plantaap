@@ -9,7 +9,8 @@ class ContenTab extends Component {
         super(props);
         this.state = {
             a : 1, 
-            b : 2
+            b : 2, 
+            k : 0
         }
     }
     
@@ -23,10 +24,15 @@ class ContenTab extends Component {
         console.log("Se esta ejecutando el componentDidMount de ContenTab");
     }*/
     
+    saludar = (e) =>{
+        console.log("Este es un saludo!!!");
+        this.setState({k:this.state.k+1});
+    }
+    
     render() {
         let componente;
         if(this.state.a < this.state.b){
-            componente = <Content1 apellido = "perez"/>;
+            componente = <Content1 apellido = "perez" contenTab = {this}/>;
         }else{
             componente = "";
         }
@@ -35,9 +41,9 @@ class ContenTab extends Component {
                 <Tab.Content>
                     <Tab.Pane eventKey="link-1">
                         {componente}
+                        <p>Contador: {this.state.k}</p>
                     </Tab.Pane>
                     <Tab.Pane eventKey="link-2">
-                    <p>How are you?</p>
                     </Tab.Pane>
                 </Tab.Content>
             </div>
